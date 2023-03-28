@@ -16,10 +16,22 @@ spec:
     spec:
       containers:
       - name: app-deployment
-        image: pavansa/mumbai-app:latest
+        image: karthikeyanmcloud/simplenodeapp:latest
         resources:
           requests:
             cpu: "100m"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3002
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+  namespace: default
+spec:
+  ports:
+    - port: 3002
+  type: LoadBalancer
+  selector:
+    app: node-app
